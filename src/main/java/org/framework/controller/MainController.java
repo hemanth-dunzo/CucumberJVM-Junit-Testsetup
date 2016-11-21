@@ -74,13 +74,9 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 		if(scenario.isFailed())
 		{
 			attachFailed(scenario.getName(),getDriver());
+			scenario.embed(attachFailed(scenario.getName(),getDriver()), scenario.getName());	
 		}
 		getDriver().quit();
-	}
-
-	@Attachment(value = "Screenshot of {0}", type = "image/png")
-	public byte[] saveScreenshot(String name, WebDriver driver) {
-		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
 
 	private byte[] getFile(String fileName) throws Exception {
