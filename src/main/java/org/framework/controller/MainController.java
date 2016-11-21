@@ -73,7 +73,7 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 	public void captureScreenshotIfFailed(Scenario scenario) {
 		if(scenario.isFailed())
 		{
-			scenario.embed(attachFailed(scenario.getName(),getDriver()), scenario.getName());	
+			attachFailed(scenario.getName(),getDriver());
 		}
 		getDriver().quit();
 	}
