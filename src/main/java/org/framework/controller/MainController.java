@@ -33,7 +33,7 @@ public class MainController {
 		return System.getProperty("applicationURL");
 	}
 
-@Attachment(value="Screenshot of {0}",type = "image/png")
+@Attachment(value="Screenshot of {0}",type = "image/jpg")
 private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
     return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 }
@@ -73,7 +73,6 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 	public void captureScreenshotIfFailed(Scenario scenario) {
 		if(scenario.isFailed())
 		{
-			attachFailed(scenario.getName(),getDriver());
 			scenario.embed(attachFailed(scenario.getName(),getDriver()), scenario.getName());	
 		}
 		getDriver().quit();
