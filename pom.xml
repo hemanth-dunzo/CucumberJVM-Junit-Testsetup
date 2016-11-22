@@ -16,7 +16,7 @@
 		<compiler.version>1.8</compiler.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<allure.version>1.4.24.RC3</allure.version>
-		<aspectj.version>1.8.9</aspectj.version>
+		<aspectj.version>1.8.5</aspectj.version>
 		<version.cucumber>1.2.5</version.cucumber>
 		<version.selenium>2.53.1</version.selenium>
 		<version.slf4j>1.7.7</version.slf4j>
