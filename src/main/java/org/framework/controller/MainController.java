@@ -60,7 +60,7 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 		return driver.get();
 	}
 
-	private String getVideoURL() throws MalformedURLException {
+	private String getVideoURL() throws Exception {
 		URL remoteServer = ((HttpCommandExecutor) ((RemoteWebDriver) getDriver()).getCommandExecutor())
 				.getAddressOfRemoteServer();
 
@@ -70,10 +70,11 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 	}
 
 	@After
-	public void captureScreenshotIfFailed(Scenario scenario) {
+	public void captureScreenshotIfFailed(Scenario scenario) throws Exception {
 		if(scenario.isFailed())
 		{
 			attachFailed(scenario.getName(),getDriver());
+			videoURL(getVideoURL());
 		}
 		getDriver().quit();
 	}
