@@ -218,12 +218,6 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.18.1</version>
 					<configuration>
-						<parallel>classes</parallel>
-						<threadCount>10</threadCount>
-						<argLine>-Dfile.encoding=UTF-8</argLine>
-						<testFailureIgnore>true</testFailureIgnore>
-						<reuseForks>true</reuseForks>
-						<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
 						<systemProperties>
 							<property>
 								<name>browser</name>
