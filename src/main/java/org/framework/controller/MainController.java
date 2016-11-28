@@ -33,20 +33,18 @@ public class MainController {
 		return System.getProperty("applicationURL");
 	}
 
-@Attachment(value="Screenshot of {0}",type = "image/jpg")
-private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
-    return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-}
+	@Attachment(value = "Screenshot of {0}", type = "image/jpg")
+	private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
+		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	}
 
 	@Before
 	public void setUp() throws Exception {
 
 		DesiredCapabilities dc = new DesiredCapabilities();
-		if(System.getProperty("browser").equals("InternetExplorer"))
-		{
+		if (System.getProperty("browser").equals("InternetExplorer")) {
 			dc.setBrowserName("internet explorer");
-		}
-		else {
+		} else {
 			dc.setBrowserName(System.getProperty("browser"));
 		}
 		dc.setJavascriptEnabled(true);
@@ -71,10 +69,8 @@ private byte[] attachFailed(String nameOfTheScenario, WebDriver driver) {
 
 	@After
 	public void captureScreenshotIfFailed(Scenario scenario) throws Exception {
-		if(scenario.isFailed())
-		{
-			attachFailed(scenario.getName(),getDriver());
-			videoURL(getVideoURL());
+		if (scenario.isFailed()) {
+			attachFailed(scenario.getName(), getDriver());
 		}
 		getDriver().quit();
 	}
