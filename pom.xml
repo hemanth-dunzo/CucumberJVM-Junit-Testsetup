@@ -15,10 +15,10 @@
 	<properties>
 		<compiler.version>1.8</compiler.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<allure.version>1.4.24.RC3</allure.version>
+		<allure.version>1.5.2</allure.version>
 		<aspectj.version>1.8.5</aspectj.version>
 		<version.cucumber>1.2.5</version.cucumber>
-		<version.selenium>2.53.1</version.selenium>
+		<version.selenium>3.3.1</version.selenium>
 		<version.slf4j>1.7.7</version.slf4j>
 	</properties>
 
@@ -76,6 +76,20 @@
 			<groupId>com.aimmac23</groupId>
 			<artifactId>selenium-video-node</artifactId>
 			<version>2.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.jayway.restassured/rest-assured -->
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.2.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
@@ -219,22 +233,21 @@
 					<version>2.18.1</version>
 					<configuration>
 					<parallel>classes</parallel>
+					<forkCount>10</forkCount>
 					<threadCount>10</threadCount>
 					<testFailureIgnore>true</testFailureIgnore>
 						<systemProperties>
 							<property>
 								<name>browser</name>
 								<value>${browser}</value>
-								<name>url</name>
-								<value>${url}</value>
+								<name>remoteURL</name>
+								<value>${remoteURL}</value>
 								<name>applicationURL</name>
 								<value>${applicationURL}</value>
 							</property>
 						</systemProperties>
 						<includes>
-							<include>**/AttachmentRunnerTest.class</include>
 							<include>**/LoginRunnerTest.class</include>
-							<include>**/SearchRunnerTest.class</include>
 						</includes>
 						<argLine>
 							-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar

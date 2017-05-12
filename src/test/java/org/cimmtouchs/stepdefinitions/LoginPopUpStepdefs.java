@@ -1,6 +1,7 @@
 package org.cimmtouchs.stepdefinitions;
 
 import cucumber.api.java.en.And;
+import org.apache.commons.lang3.StringUtils;
 import org.cimmtouchs.initializer.PageFactoryInitializer;
 
 /**
@@ -8,15 +9,12 @@ import org.cimmtouchs.initializer.PageFactoryInitializer;
  */
 public class LoginPopUpStepdefs extends PageFactoryInitializer {
 
-
-
-
-    @And("^I enter username as \"([^\"]*)\"$")
+    @And("^I enter username as \"(.*?)\"$")
     public void iEnterUsernameAs(String userName) throws Throwable {
         loginPopUp().enterUsername(userName);
     }
 
-    @And("^I enter password as \"([^\"]*)\"$")
+    @And("^I enter password as \"(.*?)\"$")
     public void iEnterPasswordAs(String password) throws Throwable {
         loginPopUp().enterPassword(password);
     }

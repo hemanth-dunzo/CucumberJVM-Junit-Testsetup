@@ -5,7 +5,7 @@ Feature: As a Developer I should be able to attach files
     Given I am in Home Page
     And I attach "<fileformat>" files
 
-    Examples: 
+    Examples:
       | fileformat |
       | xlsx       |
       | csv        |

@@ -10,7 +10,6 @@ Feature: As an Etna User I should be able to login as a Super User, General User
     Then I verify welcome message is displayed with the "<nameOfTheUser>"
     And I click on "logout" link in home page
 
-    Examples: 
-      | emailId                           | password   | nameOfTheUser     |
-      | hemanth.bs@unilogcorp.com         | hemanth123 | Super User        |
-      | hemanthgeneraluser@unilogcorp.com | hemanth123 | General User User |
+    Examples:
+      | emailId                      | password | nameOfTheUser  |
+      | \s purchaseagent@unilogcorp.com | 12345678 | Purchase Agent |

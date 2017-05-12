@@ -1,5 +1,8 @@
 package org.framework.controller;
 
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.Response;
 import cucumber.api.Scenario;
 
 import cucumber.api.java.After;
@@ -12,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.SessionId;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import org.openqa.selenium.remote.HttpCommandExecutor;
 
@@ -48,7 +52,7 @@ public class MainController {
 			dc.setBrowserName(System.getProperty("browser"));
 		}
 		dc.setJavascriptEnabled(true);
-		driver.set(new RemoteWebDriver(new URL(System.getProperty("url")), dc));
+		driver.set(new RemoteWebDriver(new URL(System.getProperty("remoteURL")), dc));
 		getDriver().manage().window().maximize();
 		getDriver().get(getApplicationURL());
 
@@ -72,7 +76,20 @@ public class MainController {
 		if (scenario.isFailed()) {
 			attachFailed(scenario.getName(), getDriver());
 		}
+        SessionId sessionId = ((RemoteWebDriver) getDriver()).getSessionId();
 		getDriver().quit();
+        URL remoteServer = ((HttpCommandExecutor)((RemoteWebDriver) getDriver()).getCommandExecutor()).getAddressOfRemoteServer();
+        try {
+			saveVideo(scenario.getName(),remoteServer,getDriver(),sessionId);
+		} catch (Exception e) {
+		}
+	}
+
+	public void saveVideo(String testCaseName,URL remoteServer, WebDriver driver,SessionId sessionId) throws Exception {
+		URL videoUrl = new URL(remoteServer, "/grid/admin/HubVideoInfoServlet/?sessionId=" + sessionId);
+		Response response = RestAssured.given().when().get(videoUrl);
+        String pathOfTheFile = JsonPath.read(response.asString(), "$.additional.path");
+		attachVideo(testCaseName,pathOfTheFile);
 	}
 
 	private byte[] getFile(String fileName) throws Exception {
@@ -81,9 +98,9 @@ public class MainController {
 
 	}
 
-	@Attachment(type = "video/webm")
-	public byte[] attachVideo(String filePath) throws Exception {
-		return getFile(filePath);
+	@Attachment(value = "Video of {0}",type="video/webm")
+	public byte[] attachVideo(String testCaseName,String path) throws Exception {
+		return getFile(path);
 	}
 
 	@Attachment(value = "json {0} attachment", type = "text/json")
